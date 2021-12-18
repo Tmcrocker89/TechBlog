@@ -48,6 +48,11 @@ document
   .querySelector('.login-form')
   .addEventListener('submit', loginFormHandler);
 
-document
-  .querySelector('.signup-form')
-  .addEventListener('submit', signupFormHandler);
+// document
+//   .querySelector('.signup-form')
+//   .addEventListener('submit', signupFormHandler);
+
+$("#signup").click(function()
+{
+  document.location.replace("/signup")
+})

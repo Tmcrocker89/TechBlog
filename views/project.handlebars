@@ -1,14 +1,17 @@
-<div class="text-center">
-  <h2>{{name}}</h2>
-  <p>{{{get_emoji}}}</p>
-  <p>{{description}}</p>
-  <p>Created by {{user.name}} on {{format_date date_created}}</p>
-  <p>
-    <span for="img" aria-label="money">💲</span>
-    <span class="dollar-amount">{{format_amount needed_funding}}</span>
-    needed
-  </p>
-  <p>
-    <button class="btn btn-primary">Fund this Project!</button>
-  </p>
+
+<div class="row mb-12 project position-relative border border-5 border-dark rounded mt-2 mb-2">
+  <div class="col-md-12 d-flex bg-dark text-white position-relative">
+    <h2 class="d-flex flex-row bg-dark text-white position-relative">
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+    <p>{{name}}</p>
+    </h2>
+      <p class="d-flex float-md-right pull-right position-relative ml-auto">Posted by {{user.name}} on {{format_date date_created}}</p>
+
+    
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{description}}
+    </p>
+  </div>
 </div>

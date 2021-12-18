@@ -1,0 +1,20 @@
+<!-- Loop over each object in the posts array -->
+{{#each posts as |post| }}
+<div class="row mb-12 post position-relative border border-5 border-dark rounded mt-2 mb-2">
+  <div class="col-md-12 d-flex bg-dark text-white position-relative">
+    <h2 class="d-flex flex-row bg-dark text-white position-relative">
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+    <a href="/post/{{post.id}}">{{post.name}}</a>
+    </h2>
+      <p class="d-flex float-md-right pull-right position-relative ml-auto">{{format_date post.date_created}}</p>
+  </div>
+  <div class="col-md-7">
+    <p>
+      {{post.description}}
+    </p>
+  </div>
+</div>
+{{/each}}
+<button class="btn btn-primary d-flex position-relative justify-content-center align-content-center m-auto" type="button" id="newPost">New Post</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="./js/dashboard.js"></script>

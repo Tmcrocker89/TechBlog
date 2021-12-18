@@ -69,6 +69,28 @@ router.get('/profile', withAuth, async (req, res) => {
   }
 });
 
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    const projectData = await Project.findAll({
+      where: {
+        user_id: req.session.user_id,
+      },
+    });
+
+    if (!projectData) {
+      res.status(404).json({ message: 'No project found with this id!' });
+      return;
+    }
+    const posts = projectData.map((post) => post.get({ plain: true }));
+    res.render('dashboard', {
+      posts,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   if (req.session.logged_in) {
@@ -77,6 +99,16 @@ router.get('/login', (req, res) => {
   }
 
   res.render('login');
+});
+
+router.get('/signup', (req, res) => {
+  // If the user is already logged in, redirect the request to another route
+  if (req.session.logged_in) {
+    res.redirect('/profile');
+    return;
+  }
+
+  res.render('signup');
 });
 
 module.exports = router;
