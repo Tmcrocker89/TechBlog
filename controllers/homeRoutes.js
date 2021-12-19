@@ -1,4 +1,5 @@
 const router = require('express').Router();
+// const { where } = require('sequelize/types');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
@@ -37,10 +38,15 @@ router.get('/post/:id', async (req, res) => {
         },
       ],
     });
+    const commentData = await Comment.findAll({where: {post_id: req.params.id} })
+    const comments = commentData.map((comment) => comment.get({ plain: true }));
+    // const userData = await User.findAll({where: {id: comments[0].user_id} })
+    // const user = userData.map((user) => user.get({ plain: true }));
+    // console.log(comments)
 
     const post = postData.get({ plain: true });
-    console.log(post)
     let owner = false;
+    let userId = req.session.user_id;
     if(req.session.user_id == post.user_id)
     {
       owner = true;
@@ -48,6 +54,8 @@ router.get('/post/:id', async (req, res) => {
     res.render('post', {
       ...post,
       owner,
+      userId,
+      comments,
       logged_in: req.session.logged_in
     });
   } catch (err) {

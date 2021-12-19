@@ -37,11 +37,38 @@ const editPostHandler = async (event) => {
       }
     }
   };
+
+  const saveCommentHandler = async (event) => {
+    console.log("calledFunction")
   
+    const comment = document.querySelector('#comment').value.trim();
+    const id =  document.querySelector('#id').innerHTML;
+
+  
+    if (comment) {
+      const response = await fetch(`/api/comments`, {
+        method: 'POST',
+        body: JSON.stringify({ comment, id }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      if (response.ok) {
+        document.location.replace(`/post/${id}`);
+      } else {
+        alert(response.statusText);
+      }
+    }
+  };
+
 $("#editPost").click(function()
 {
     console.log("clicked")
     editPostHandler()
+})
+
+$("#save-comment").click(function()
+{
+    saveCommentHandler()
 })
 
 document

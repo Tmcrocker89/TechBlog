@@ -23,4 +23,8 @@ header, .post:not(:last-child) {
   margin-left: -5px;
 }
 
+a{
+  text-decoration: none !important;
+}
+
 
