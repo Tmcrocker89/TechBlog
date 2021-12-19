@@ -33,17 +33,41 @@ router.get('/project/:id', async (req, res) => {
       include: [
         {
           model: User,
-          attributes: ['name'],
+          attributes: ['name','id'],
         },
       ],
     });
 
     const project = projectData.get({ plain: true });
-
+    console.log(project)
+    let owner = false;
+    if(req.session.user_id == project.user_id)
+    {
+      owner = true;
+    }
     res.render('project', {
       ...project,
+      owner,
       logged_in: req.session.logged_in
     });
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+router.put('/project/:id', async (req, res) => {
+  try {
+    const postData = await Project.update(
+        {
+          name: req.body.title,
+          description: req.body.description,
+        },
+
+        {where: {
+          id: req.params.id
+        }
+      })
+    res.status(200).json(postData);
   } catch (err) {
     res.status(500).json(err);
   }

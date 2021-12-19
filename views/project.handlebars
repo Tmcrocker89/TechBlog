@@ -1,4 +1,33 @@
+{{#if owner}}
+<div class=" input-group row mb-12 project position-relative border border-5 border-dark rounded mt-2 mb-2">
+  <div class="col-md-12 d-flex bg-dark text-white position-relative">
+    <h2 class="d-flex flex-row bg-dark text-white position-relative">
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Title</span>
+        </div>
+        <div class="input-group-prepend">
+          <span class="input-group-text" style="display:none;" id="id">{{id}}</span>
+        </div>
+        <input type="text" id="title" value="{{name}}">
+      </div>
+    </h2>
+      <p class="d-flex float-md-right pull-right position-relative ml-auto">Posted by {{user.name}} on {{format_date date_created}}</p>
 
+    
+  </div>
+  <div class="col-md-10">
+    <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">Post</span>
+        </div>
+    <input type="text" id="post" style="min-height:100px;min-width:75%;" value="{{description}}">
+    </div>
+  </div>
+</div>
+  <button class="btn btn-primary d-flex position-relative justify-content-center align-content-center m-auto" type="button" id="editPost">Edit Post</button>
+{{else}}
 <div class="row mb-12 project position-relative border border-5 border-dark rounded mt-2 mb-2">
   <div class="col-md-12 d-flex bg-dark text-white position-relative">
     <h2 class="d-flex flex-row bg-dark text-white position-relative">
@@ -15,3 +44,6 @@
     </p>
   </div>
 </div>
+{{/if}}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="../js/editPost.js"></script>
