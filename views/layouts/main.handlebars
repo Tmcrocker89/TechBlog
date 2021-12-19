@@ -15,7 +15,7 @@
       <h1>
         <a href="/">The Tech Blog</a>
       </h1>
-      <nav >
+      <nav class="text-primary">
         <!-- Conditionally render login or logout links -->
         {{#if logged_in}}
         <a href="/">Home</a> |
@@ -23,7 +23,8 @@
         <button class="no-button" id="logout">logout</button>
         {{else}}
         <a href="/">Home</a> |
-        <a href="/login">login</a>
+        <a href="/login">login</a> |
+        <a href="/signup">Sign Up</a>
         {{/if}}
       </nav>
     </header>

@@ -38,12 +38,21 @@ router.get('/post/:id', async (req, res) => {
         },
       ],
     });
-    const commentData = await Comment.findAll({where: {post_id: req.params.id} })
+    const commentData = await Comment.findAll({
+      where: {
+        post_id: req.params.id
+      },
+      include: [
+      {
+        model: User,
+        attributes: ['name'],
+      }
+    ] 
+    });
     const comments = commentData.map((comment) => comment.get({ plain: true }));
     // const userData = await User.findAll({where: {id: comments[0].user_id} })
     // const user = userData.map((user) => user.get({ plain: true }));
-    // console.log(comments)
-
+    console.log(comments)
     const post = postData.get({ plain: true });
     let owner = false;
     let userId = req.session.user_id;
