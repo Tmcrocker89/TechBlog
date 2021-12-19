@@ -1,11 +1,11 @@
 const router = require('express').Router();
-const { Project, User } = require('../models');
+const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
   try {
-    // Get all projects and JOIN with user data
-    const projectData = await Project.findAll({
+    // Get all posts and JOIN with user data
+    const postData = await Post.findAll({
       include: [
         {
           model: User,
@@ -15,11 +15,11 @@ router.get('/', async (req, res) => {
     });
 
     // Serialize data so the template can read it
-    const projects = projectData.map((project) => project.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', { 
-      projects, 
+      posts, 
       logged_in: req.session.logged_in 
     });
   } catch (err) {
@@ -27,9 +27,9 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/project/:id', async (req, res) => {
+router.get('/post/:id', async (req, res) => {
   try {
-    const projectData = await Project.findByPk(req.params.id, {
+    const postData = await Post.findByPk(req.params.id, {
       include: [
         {
           model: User,
@@ -38,15 +38,15 @@ router.get('/project/:id', async (req, res) => {
       ],
     });
 
-    const project = projectData.get({ plain: true });
-    console.log(project)
+    const post = postData.get({ plain: true });
+    console.log(post)
     let owner = false;
-    if(req.session.user_id == project.user_id)
+    if(req.session.user_id == post.user_id)
     {
       owner = true;
     }
-    res.render('project', {
-      ...project,
+    res.render('post', {
+      ...post,
       owner,
       logged_in: req.session.logged_in
     });
@@ -55,9 +55,9 @@ router.get('/project/:id', async (req, res) => {
   }
 });
 
-router.put('/project/:id', async (req, res) => {
+router.put('/post/:id', async (req, res) => {
   try {
-    const postData = await Project.update(
+    const postData = await Post.update(
         {
           name: req.body.title,
           description: req.body.description,
@@ -79,7 +79,7 @@ router.get('/profile', withAuth, async (req, res) => {
     // Find the logged in user based on the session ID
     const userData = await User.findByPk(req.session.user_id, {
       attributes: { exclude: ['password'] },
-      include: [{ model: Project }],
+      include: [{ model: Post }],
     });
 
     const user = userData.get({ plain: true });
@@ -95,17 +95,17 @@ router.get('/profile', withAuth, async (req, res) => {
 
 router.get('/dashboard', withAuth, async (req, res) => {
   try {
-    const projectData = await Project.findAll({
+    const postData = await Post.findAll({
       where: {
         user_id: req.session.user_id,
       },
     });
 
-    if (!projectData) {
-      res.status(404).json({ message: 'No project found with this id!' });
+    if (!postData) {
+      res.status(404).json({ message: 'No post found with this id!' });
       return;
     }
-    const posts = projectData.map((post) => post.get({ plain: true }));
+    const posts = postData.map((post) => post.get({ plain: true }));
     res.render('dashboard', {
       posts,
       logged_in: true

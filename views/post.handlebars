@@ -1,5 +1,5 @@
 {{#if owner}}
-<div class=" input-group row mb-12 project position-relative border border-5 border-dark rounded mt-2 mb-2">
+<div class=" input-group row mb-12 post position-relative border border-5 border-dark rounded mt-2 mb-2">
   <div class="col-md-12 d-flex bg-dark text-white position-relative">
     <h2 class="d-flex flex-row bg-dark text-white position-relative">
       <!-- Call helper function with triple brackets to render the emoji span as HTML -->
@@ -26,9 +26,12 @@
     </div>
   </div>
 </div>
-  <button class="btn btn-primary d-flex position-relative justify-content-center align-content-center m-auto" type="button" id="editPost">Edit Post</button>
+  <div class="col-md-4 m-auto d-flex">
+    <button class="btn btn-primary d-flex position-relative justify-content-center align-content-center m-auto" type="button" id="editPost">Save Post</button>
+    <button class="btn btn-sm btn-danger del-btn m-auto" data-id="{{id}}">DELETE</button>
+  </div>
 {{else}}
-<div class="row mb-12 project position-relative border border-5 border-dark rounded mt-2 mb-2">
+<div class="row mb-12 post position-relative border border-5 border-dark rounded mt-2 mb-2">
   <div class="col-md-12 d-flex bg-dark text-white position-relative">
     <h2 class="d-flex flex-row bg-dark text-white position-relative">
       <!-- Call helper function with triple brackets to render the emoji span as HTML -->
@@ -45,5 +48,22 @@
   </div>
 </div>
 {{/if}}
+<div class="row mb-12 post position-relative border border-5 border-dark rounded mt-2 mb-2">
+  <div class="col-md-12 d-flex bg-dark text-white position-relative">
+    <h2 class="d-flex flex-row bg-dark text-white position-relative">
+      <!-- Call helper function with triple brackets to render the emoji span as HTML -->
+    <p>Comment</p>
+    </h2>   
+  </div>
+  <div class="col-md-12">
+    
+    <div class="input-group">
+      <input type="text" id="comment" style="min-height:100px;min-width:100%;">
+    </div>
+
+  </div>
+</div>
+
+
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="../js/editPost.js"></script>
