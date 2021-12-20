@@ -1,5 +1,5 @@
 
-# Employee Management System
+# Tech Blog
 # License
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)<br>
 # Deployed Link [TechBlog](https://mysterious-plains-66594.herokuapp.com/)
